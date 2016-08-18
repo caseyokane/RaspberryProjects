@@ -57,8 +57,10 @@ int initDeviceComms(){
  */
 int main(int argc, char* argv[]){
 	std::cout<<"In progress...\n";
-    //Use while loop to constantly receive the temperature and print it
-    //Call initDeviceComms to get the associated temperature
+
+	tempInfo temperatureObj;
+    	//Use while loop to constantly receive the temperature and print it
+    	//Call initDeviceComms to get the associated temperature
 	return 0;
 }
 
