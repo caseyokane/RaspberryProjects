@@ -49,6 +49,7 @@ int initDeviceComms(){
 	std::cout << "reading information from whoami" << std::endl;
     //Read the information from the device using i2c one byte at a time
     if(read(fd, buffer, 1) <0){
+        //No bytes were read if entering this condition 
         std::cout << "Issue reading from device bus...\n";
         exit(1);
     }
