@@ -9,8 +9,8 @@
 #include <unistd.h>
 
 class tempInfo{
-	public:
-		int tempOutinC;
+    public:
+        int tempOutinC;
 }; 
 
 
@@ -25,7 +25,8 @@ int initDeviceComms(){
     //Initialize file descriptor, buffer and I2C address
     int fd = 0;
     char* fileName = NULL;
-    char buffer[42] = {};
+    //TODO: Decide on proper buffer value based on data received from module
+    char buffer[10] = {};
     int devAddr = 0xbf;
     
     //Open the bus to communicate with ADC device
@@ -59,7 +60,7 @@ int main(int argc, char* argv[]){
 	std::cout<<"In progress...\n";
     //Use while loop to constantly receive the temperature and print it
     //Call initDeviceComms to get the associated temperature
-	return 0;
+    return 0;
 }
 
 
