@@ -29,28 +29,30 @@ int initDeviceComms(){
     char* fileName = NULL;
     //TODO: Decide on proper buffer value based on data received from module
     char buffer[10] = {};
+    int devAddr = 0xbf;
     //Open the bus to communicate with ADC device
     if(( fd = open(i2cLoc, O_RDWR)) < 0){
         std::cout << "Issue opening the device bus...\n";
-        return 0;
+        exit(1);
     }
 
     //Use ioctl to talk to the device
     if(ioctl(fd, I2C_SLAVE, slaveAddr) < 0) {
         std::cout << "Issue communicating with the device...\n";
-        return 0;
+        exit(1);
     }    
 
-	std::cout << "assigning buffer to whoami" << std::endl;	
+    std::cout << "assigning buffer to whoami" << std::endl;	
 	
     buffer[0] = HTS221whoami;
-
-	std::cout << "reading information from whoami" << std::endl;
+    
+    std::cout << "reading information from whoami" << std::endl;
+    
     //Read the information from the device using i2c one byte at a time
     if(read(fd, buffer, 1) <= 0){
         //No bytes were read if entering this condition 
         std::cout << "Issue reading from device bus...\n";
-        return 0;
+        exit(1);
     }
 
     std::cout << "Returned: " << buffer[0] << std::endl;
