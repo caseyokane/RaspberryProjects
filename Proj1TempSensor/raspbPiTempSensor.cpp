@@ -8,8 +8,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-const int slaveAddr = 0xbf; 
-const int HTS221whoami = 0xbc;
+//Discounting R/W bit for HTS221  
+const int slaveAddr = 0x5f;
+const int HTS221whoami = 0x0f;
 const char * i2cLoc = "/dev/i2c-1";
 
 class tempInfo{
@@ -29,7 +30,6 @@ int initDeviceComms(){
     char* fileName = NULL;
     //TODO: Decide on proper buffer value based on data received from module
     char buffer[10] = {};
-    int devAddr = 0xbf;
     //Open the bus to communicate with ADC device
     if(( fd = open(i2cLoc, O_RDWR)) < 0){
         std::cout << "Issue opening the device bus...\n";
