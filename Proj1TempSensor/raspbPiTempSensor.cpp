@@ -8,8 +8,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-const int slaveAddr = 0xbf; 
-const int HTS221whoami = 0xbc;
+const int slaveAddr = 0xbe; 
+const int HTS221whoami = 0x0f;
+const int tempOutLow = 0x28;
+const int tempOutHigh = 0x29;
 const char * i2cLoc = "/dev/i2c-1";
 
 class tempInfo{
@@ -26,7 +28,6 @@ class tempInfo{
 int initDeviceComms(){
     //Initialize file descriptor, buffer and I2C address
     int fd = 0;
-    char* fileName = NULL;
     //TODO: Decide on proper buffer value based on data received from module
     char buffer[10] = {};
     //Open the bus to communicate with ADC device
@@ -36,6 +37,7 @@ int initDeviceComms(){
     }
 
     //Use ioctl to talk to the device
+	//TODO: Issue happening here, maybe slaveAddr or fd from opening file
     if(ioctl(fd, I2C_SLAVE, slaveAddr) < 0) {
         std::cout << "Issue communicating with the device...\n";
         return 0;
