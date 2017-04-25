@@ -198,9 +198,3 @@ int main(int argc, char* argv[]){
 	std::cout<<"Current Temperature (in Celsius): "<<temperatureObj.tempOutinC<<std::endl;
 	return 0;
 }
-
-
-//TODO: Decide how we want to present information.... 
-    /*Constant while loop that continues to print out temperature (inefficient?)
-     *Call device communication function when button is pressed
-    */
