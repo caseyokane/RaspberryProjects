@@ -30,7 +30,6 @@ class tempInfo{
  * Helper function to handle register R/W using read and write calls 
  *
  */
-/*
 void i2cCommRW(int fd, const int addr, const char* wBuff, const char* rBuff){
     wBuff[0] = addr;
     write(fd, wBuff, 1);
@@ -39,7 +38,6 @@ void i2cCommRW(int fd, const int addr, const char* wBuff, const char* rBuff){
         std::cout << "Issue here" << std::endl;
     }   
 }
-*/
 
 
 /* initDeviceComms()
