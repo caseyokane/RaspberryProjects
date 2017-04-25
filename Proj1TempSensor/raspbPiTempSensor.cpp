@@ -30,7 +30,7 @@ class tempInfo{
  * Helper function to handle register R/W using read and write calls 
  *
  */
-void i2cCommRW(int fd, const int addr, const char* wBuff, const char* rBuff){
+void i2cCommRW(int fd, const int addr, char* wBuff, char* rBuff){
     wBuff[0] = addr;
     write(fd, wBuff, 1);
     if(read(fd, rBuff, 1) != 1){
@@ -82,34 +82,17 @@ float initDeviceComms(){
 
     //Get calibration values from memory
     //Access location 0x32 for t0 calibration (8 bits)
-    /*
-    calibRegAddr[0] = T0DEGCALIBADDR;
-    write(fd, calibRegAddr, 1); 
-    if(read(fd, data, 1) != 1){
-        std::cout << "Issue reading calibration values" << std::endl;
-    } 
-    */  
     i2cCommRW(fd, T0DEGCALIBADDR, calibRegAddr, data);
 
     //Initializes temporary integer to store read data values
     int t0calReg = data[0]; 
 
     //Access location 0x33 for t1 calibration
-    /*
-    calibRegAddr[0] = T1DEGCALIBADDR;
-    write(fd, calibRegAddr, 1);
-    read(fd, data, 1);
-    */
     i2cCommRW(fd, T1DEGCALIBADDR, calibRegAddr, data);
 
     int t1calReg = data[0];
 
     //Retreive MSBs for t0 and t1 calibration register values
-    /*
-    calibRegAddr[0] = T0T1MSB;
-    write(fd, calibRegAddr, 1);
-    read(fd, data, 1);
-    */
     i2cCommRW(fd, T0T1MSB, calibRegAddr, data);
     int raw = data[0];
     
@@ -126,38 +109,18 @@ float initDeviceComms(){
     char dataRead0; char dataRead1;
     
     //Read from 0x3c and 0x3d to get the 2 bytes associated with T0_Out reg
-    /*
-    calibRegAddr[0] = T0OUTLSB;
-    write(fd, calibRegAddr, 1);
-    read(fd, data, 1);
-    */
     i2cCommRW(fd, T0OUTLSB, calibRegAddr, data);    
     dataRead0 = data[0];
 
-    /*
-    calibRegAddr[0] = T0OUTMSB;
-    write(fd, calibRegAddr, 1);
-    read(fd, data, 1);
-    */
     i2cCommRW(fd, T0OUTMSB, calibRegAddr, data);      
     dataRead1 = data[0];
 
     int t0outVal = (dataRead1 * 256) + dataRead0;
 
     //Read from 0x3e and 0x3f to get the 2 bytes associated with T1_out reg
-    /*
-    calibRegAddr[0] = T1OUTLSB;
-    write(fd, calibRegAddr, 1);
-    read(fd, data, 1);
-    */
     i2cCommRW(fd, T1OUTLSB, calibRegAddr, data);          
     dataRead0 = data[0];
 
-    /*
-    calibRegAddr[0] = T1OUTMSB;
-    write(fd, calibRegAddr, 1);
-    read(fd, data, 1);
-    */
     i2cCommRW(fd, T1OUTMSB, calibRegAddr, data);             
     dataRead1 = data[0];
 
